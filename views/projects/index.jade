@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  #about
+    include ../../public/about.html
+  .projects
+    each project in projects
+        div(id=project.replace(' ','-'), class='project')
+          .project-description
+            h2
+              a(href='projects/'+project.replace(' ','-'))= project
+            .project-description-text
+              != templateRender('projects/'+project.replace(' ','-')+'.html')

@@ -1,0 +1,182 @@
+body {
+  padding: 10px 5px;
+  margin: 0px;
+  font-size: 14pt;
+  font-family: "Open Sans", Helvetical, Arial, sans-serif;
+  background-color: #DDDDDD
+}
+
+nav {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 40px;
+  background-color: grey;
+  font-size: 1.5em;
+  z-index: 1;
+}
+
+nav .nav-item {
+  margin: auto;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  text-decoration: none;
+  float: right;
+}
+
+nav #logo {
+  text-transform: uppercase;
+  font-weight: 800;
+  float: left;
+  margin-top: 0px;
+  letter-spacing: 0.1em;
+}
+
+a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#about {
+  margin: 40px 15px 20px 15px;
+  text-align: justify;
+  font-weight: 300;
+}
+
+.projects {
+  display: flex;
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -webkit-box-flex;
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;
+
+  flex-wrap: wrap;
+  -webkit-box-wrap: wrap;
+  -webkit-box-flex-wrap: wrap;
+  -moz-box-wrap: wrap;
+  -ms-flexbox-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+}
+
+.projects h2 {
+  text-align: center;
+  margin: auto;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  border-bottom: solid black 2px;
+}
+
+.project {
+  /*height: 4em;*/
+  background-position: center;
+  background-size: cover;
+  padding: 40px;
+  border: solid black 2px;
+  /*border-top: solid black 2px;*/
+  /*border-bottom: solid black 2px;*/
+  margin: 5px auto;
+  /*margin: 1.5em;*/
+  width: 90vw;
+  max-width: 560px;
+  max-height: 560px;
+  overflow: scroll;
+  font-size: 0.8em;
+}
+
+.project-description,
+.project-show {
+  background-color: white;
+  opacity: 0.8;
+  padding: 2em;
+  border: solid black 4px;
+  text-align: justify;
+}
+
+.project-show {
+  margin-top: 40px;
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.project-show h2 {
+  margin: 0px 0px 10px 0px;
+  font-size: 1.3em;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: solid black 3px;
+}
+
+.project-show-image {
+  width: 100%;
+  border: solid black 3px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.project-link {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  border-top: solid black 2px;
+}
+
+#Birdr {
+  background-image: url("/images/birdr.jpg");
+}
+
+#Git-R {
+  background-image: url("/images/git-r.jpg");
+}
+
+#QCVG {
+  background-image: url("/images/qcvg.jpg");
+}
+
+#Private-Chronology {
+  background-image: url("/images/private-chronology.jpg");
+}
+
+#about {
+  height: 20vw;
+  min-height: 10em;
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto 10px auto;
+}
+
+#about img {
+  display: none;
+  margin: auto;
+  margin-right: 20px;
+  padding: auto;
+  float: left;
+  width: auto;
+  height: 90%;
+  border: solid black 2px;
+}
+
+.project-description-text {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+  #about img {
+    display: block;
+  }
+
+  .project-description-text {
+    display: block;
+    background-color: white;
+  }
+}
