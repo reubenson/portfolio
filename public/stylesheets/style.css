@@ -170,6 +170,8 @@ a:hover {
   display: none;
 }
 
+iframe { border: none; padding: 10px; }
+
 @media screen and (min-width: 600px) {
   #about img {
     display: block;
