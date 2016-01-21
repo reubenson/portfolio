@@ -1,0 +1,24 @@
+p.
+  The QCVG (Quad Control Voltage Generator) is a hardware and software package
+  designed, built, and developed by Reuben Son for implementing computerized
+  control of an analogue modular synthesizer. On the hardware side, the QCVG is
+  comprised of an Arduino Nano microcontroller interfaced to a pair of dual-DAC
+  chips, which provide four channels of 0-4V CV (control voltage), and four
+  trigger outputs (for triggering envelope generators in the synthesizer). Each
+  CV output may be patched into an oscillator to control its pitch, and the
+  trigger outputs are to be patched into envelope generators to control the
+  articulation of notes through a voltage-controlled amplifier (VCA).
+  The C++ library for the QCVG is still under development and a small
+  production run of the hardware may be produced in the future.
+
+p The following demo was recorded in a single unedited take using the sample
+sketch provided on <a href="https://github.com/reubenson/qcvg">GitHub</a>.
+
+#qcvg-audio
+
+script.
+  $(function(){
+    loadSoundcloud(209084436,"qcvg-audio");
+  });
+
+a(class='project-link', href='http://privatechronology.com/qcvg.html') Visit privatechronology.com/qcvg
