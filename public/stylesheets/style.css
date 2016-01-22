@@ -58,6 +58,7 @@ a:hover { text-decoration: underline; }
 
 #about {
   position: fixed;
+  margin: 0px;
   height: 80vh;
   width: 100%;
   background-image: url('/images/studio.jpg');
@@ -66,7 +67,7 @@ a:hover { text-decoration: underline; }
   z-index: -1;
 }
 
-#about p {
+#about h2 {
   text-align: justify;
   font-weight: 700;
   font-size: 1.2em;
@@ -202,7 +203,7 @@ iframe { border: none; padding: 10px; }
     /*display: block;*/
   }
 
-  #about p {
+  #about h2 {
     /*font-weight: 700;*/
     font-size: 1.5em;
     letter-spacing: 0.3em;
