@@ -1,9 +1,9 @@
 body {
-  padding: 10px 5px;
   margin: 0px;
-  font-size: 14pt;
-  font-family: "Open Sans", Helvetical, Arial, sans-serif;
-  background-color: #DDDDDD
+  font-size: 13pt;
+  font-weight: 300;
+  font-family: "Raleway", "Open Sans", Helvetical, Arial, sans-serif;
+  background-color: #DDDDDD;
 }
 
 nav {
@@ -13,13 +13,15 @@ nav {
   width: 100vw;
   height: 40px;
   background-color: grey;
-  font-size: 1.5em;
-  z-index: 1;
+  border-bottom: solid black 2px;
+  font-size: 1.6em;
+  opacity: 0.9;
+  z-index: 2;
 }
 
 nav .nav-item {
   margin: auto;
-  padding-left: 0.3em;
+  margin-top: 3px;
   padding-right: 0.3em;
   text-decoration: none;
   float: right;
@@ -27,10 +29,15 @@ nav .nav-item {
 
 nav #logo {
   text-transform: uppercase;
-  font-weight: 800;
+  font-weight: 400;
   float: left;
-  margin-top: 0px;
+  margin-left: 0.3em;
   letter-spacing: 0.1em;
+}
+
+.nav-spacer {
+  position: relative;
+  height: 40px;
 }
 
 a {
@@ -39,17 +46,59 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
+a:hover { text-decoration: underline; }
 
 #about {
-  margin: 40px 15px 20px 15px;
-  text-align: justify;
-  font-weight: 300;
+  position: fixed;
+  height: 80vh;
+  width: 100%;
+  background-image: url('/images/studio.jpg');
+  background-size: cover;
+  background-position: right;
+  z-index: -1;
 }
 
-.projects {
+#about p {
+  text-align: justify;
+  font-weight: 700;
+  font-size: 1.2em;
+  padding-top: 30vh;
+  margin: auto;
+  width: 70vw;
+  color: white;
+  text-shadow: 1px 3px black;
+}
+
+#about img {
+  display: none;
+  margin: auto auto 20px 20px;
+  margin-right: 20px;
+  padding: auto;
+  float: left;
+  width: auto;
+  height: 90%;
+  max-height: 250px;
+  max-width: 250px;
+  border: solid black 2px;
+}
+
+section.projects {
+  margin-top: 80vh;
+  background-color: white;
+}
+
+section.projects h2 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2em;
+  border-bottom: solid black 3px;
+}
+
+.projects-index {
+  width: 100%;
+  /*margin-top: 60vh;*/
+  z-index: 1;
+
   display: flex;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -webkit-box-flex;
@@ -65,7 +114,7 @@ a:hover {
   -webkit-flex-wrap: wrap;
 }
 
-.projects h2 {
+.projects-index h3 {
   text-align: center;
   margin: auto;
   font-weight: 400;
@@ -74,20 +123,17 @@ a:hover {
 }
 
 .project {
-  /*height: 4em;*/
   background-position: center;
   background-size: cover;
   padding: 40px;
   border: solid black 2px;
-  /*border-top: solid black 2px;*/
-  /*border-bottom: solid black 2px;*/
-  margin: 5px auto;
-  /*margin: 1.5em;*/
+  margin: 0px auto 5px auto;
   width: 90vw;
   max-width: 560px;
   max-height: 560px;
   overflow: scroll;
-  font-size: 0.8em;
+  font-size: 0.9em;
+  z-index: 1;
 }
 
 .project-description,
@@ -131,54 +177,40 @@ a:hover {
   border-top: solid black 2px;
 }
 
-#Birdr {
-  background-image: url("/images/birdr.jpg");
-}
+#Birdr { background-image: url("/images/birdr.jpg"); }
 
-#Git-R {
-  background-image: url("/images/git-r.jpg");
-}
+#Git-R { background-image: url("/images/git-r.jpg"); }
 
-#QCVG {
-  background-image: url("/images/qcvg.jpg");
-}
+#QCVG { background-image: url("/images/qcvg.jpg"); }
 
-#Private-Chronology {
-  background-image: url("/images/private-chronology.jpg");
-}
+#Private-Chronology { background-image: url("/images/private-chronology.jpg"); }
 
-#about {
-  height: 20vw;
-  min-height: 10em;
-  width: 90%;
-  max-width: 800px;
-  margin: 40px auto 10px auto;
-}
-
-#about img {
-  display: none;
-  margin: auto;
-  margin-right: 20px;
-  padding: auto;
-  float: left;
-  width: auto;
-  height: 90%;
-  border: solid black 2px;
-}
-
-.project-description-text {
-  display: none;
-}
+.project-description-text { display: none; }
 
 iframe { border: none; padding: 10px; }
 
 @media screen and (min-width: 600px) {
   #about img {
-    display: block;
+    /*display: block;*/
+  }
+
+  #about p {
+    /*font-weight: 700;*/
+    font-size: 1.5em;
+    letter-spacing: 0.3em;
+  }
+
+  section.projects {
+    padding-left: 1vw;
+    padding-right: 1vw;
   }
 
   .project-description-text {
     display: block;
     background-color: white;
+  }
+
+  .project {
+    margin-bottom: 50px;
   }
 }
