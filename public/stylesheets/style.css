@@ -35,6 +35,14 @@ nav #logo {
   letter-spacing: 0.1em;
 }
 
+nav h1 {
+  font-size: 1em;
+  height: 40px;
+  padding: 0px;
+  margin: 0px;
+  display: inline;
+}
+
 .nav-spacer {
   position: relative;
   height: 40px;
