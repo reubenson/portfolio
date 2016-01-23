@@ -1,5 +1,6 @@
 body {
   margin: 0px;
+  width: 100vw;
   font-size: 13pt;
   font-weight: 300;
   font-family: "Raleway", "Open Sans", Helvetical, Arial, sans-serif;
@@ -92,8 +93,9 @@ a:hover { text-decoration: underline; }
 }
 
 section.projects {
+  /*width: 100vw;*/
   margin-top: 80vh;
-  background-color: white;
+  background-color: #e1e1e1;
 }
 
 section.projects h2 {
@@ -101,26 +103,48 @@ section.projects h2 {
   text-transform: uppercase;
   font-size: 2em;
   border-bottom: solid black 3px;
+  color: black;
+  font-weight: 400;
+  /*text-shadow: 4px 3px black;*/
+
 }
 
 .projects-index {
-  width: 100%;
-  /*margin-top: 60vh;*/
   z-index: 1;
 
   display: flex;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -webkit-box-flex;
-  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -moz-flex;
   display: -ms-flexbox;      /* TWEENER - IE 10 */
   display: -webkit-flex;
 
   flex-wrap: wrap;
   -webkit-box-wrap: wrap;
   -webkit-box-flex-wrap: wrap;
-  -moz-box-wrap: wrap;
   -ms-flexbox-wrap: wrap;
   -webkit-flex-wrap: wrap;
+
+  flex-direction: row;
+  -webkit-box-direction: row;
+  -webkit-box-flex-direction: row;
+  -ms-flexbox-direction: row;
+  -webkit-flex-direction: row;
+
+
+  /*justify-content: space-around;
+
+  display: -ms-Flexbox;
+	-ms-box-orient: horizontal;
+
+
+  flex-flow: row wrap;
+  -webkit-flex-flow: row wrap;
+	-moz-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+
+  align-content: flex-start;
+  align-items: flex-start;*/
 }
 
 .projects-index h3 {
@@ -136,13 +160,19 @@ section.projects h2 {
   background-size: cover;
   padding: 40px;
   border: solid black 2px;
-  margin: 0px auto 5px auto;
+  margin: 0px 0px 5px 0px;
   width: 90vw;
-  max-width: 560px;
   max-height: 560px;
   overflow: scroll;
   font-size: 0.9em;
   z-index: 1;
+
+  -webkit-box-flex: 1 1 400px;   /* OLD - iOS 6-, Safari 3.1-6 */
+  -webkit-box: 1 1 400px;
+  -webkit-flex: 1 1 400px;       /* Safari 6.1+. iOS 7.1+, BB10 */
+  -moz-flex: 1 1 400px;
+  -ms-flex: 1 1 400px;           /* IE 10 */
+  flex: 1 1 400px;
 }
 
 .project-description,
@@ -204,7 +234,6 @@ iframe { border: none; padding: 10px; }
   }
 
   #about h2 {
-    /*font-weight: 700;*/
     font-size: 1.5em;
     letter-spacing: 0.3em;
   }
@@ -220,6 +249,7 @@ iframe { border: none; padding: 10px; }
   }
 
   .project {
-    margin-bottom: 50px;
+    min-width: 400px;
+    margin: 0px 20px 50px 20px;
   }
 }
