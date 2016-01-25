@@ -178,7 +178,7 @@ section.projects h2 {
 .project-description,
 .project-show {
   background-color: white;
-  opacity: 0.8;
+  /*opacity: 0.8;*/
   padding: 2em;
   border: solid black 4px;
   text-align: justify;
@@ -188,6 +188,7 @@ section.projects h2 {
   margin-top: 40px;
   max-width: 800px;
   margin: 40px auto;
+  z-index: 1;
 }
 
 .project-show h2 {
@@ -227,6 +228,11 @@ section.projects h2 {
 .project-description-text { display: none; }
 
 iframe { border: none; padding: 10px; }
+
+canvas {
+  position: fixed;
+  z-index: -2;
+}
 
 @media screen and (min-width: 600px) {
   #about img {
