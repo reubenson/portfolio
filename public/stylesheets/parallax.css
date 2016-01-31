@@ -1,0 +1,69 @@
+/* Parallax base styles
+ --------------------------------------------- */
+
+ .parallax {
+   height: 100vh;
+   overflow-x: hidden;
+   overflow-y: auto;
+   -webkit-perspective: 1px;
+   perspective: 1px;
+ }
+
+ .parallax_layer {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+ }
+
+ .parallax_layer_base {
+   margin-top: -10vh;
+   -webkit-transform: translateZ(0);
+   transform: translateZ(0);
+   background-size: 100%;
+   background-image: url('/images/EliKeszler41041.jpg');
+   background-repeat: no-repeat;
+ }
+/*
+.parallax_layer_base .title {
+  top: 25%;
+}
+
+.parallax_layer_back .title {
+  top: 25%;
+}*/
+
+ .parallax_layer_back {
+   top: 40%;
+   margin-top: 140vh;
+   -webkit-transform: translateZ(-1px);
+   transform: translateZ(-1px) scale(2);
+   /*background-size: cover;*/
+   background-image: url('/images/L-Carrier.png');
+   background-repeat: no-repeat;
+ }
+
+ .parallax {
+   font-size: 200%;
+ }
+
+  /* add some padding to force scrollbars */
+ .parallax_layer {
+   padding: 100vh 0;
+ }
+
+  /* centre the content in the parallax layers */
+ .title {
+   color: white;
+   font-weight: 700;
+   font-size: 2em;
+   letter-spacing: 0.5em;
+   text-align: center;
+   text-shadow: 5px 5px black;
+   position: absolute;
+   left: 50%;
+   top: 25%;
+   -webkit-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+ }

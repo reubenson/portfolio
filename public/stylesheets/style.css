@@ -5,6 +5,7 @@ body {
   font-weight: 300;
   font-family: "Raleway", "Open Sans", Helvetical, Arial, sans-serif;
   background-color: #DDDDDD;
+  /*perspective: 1px;*/
 }
 
 nav {
@@ -66,6 +67,7 @@ a:hover { text-decoration: underline; }
   background-size: cover;
   background-position: right;
   z-index: -1;
+  /*transform: translateZ(-1px);*/
 }
 
 #about h2 {
@@ -186,6 +188,7 @@ section.projects h2 {
 
 .project-show {
   margin-top: 40px;
+  width: 80vw;
   max-width: 800px;
   margin: 40px auto;
   z-index: 1;

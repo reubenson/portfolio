@@ -1,1 +1,12 @@
 extends ../layout
+
+block content
+  audio(preload="auto", autobuffer, controls=false, autoplay="true", data={title:'Todmorden, UK'}, crossorigin="anonymous")
+    source(src="https://crossorigin.me/http://78.46.38.217/vlf1")
+  audio(preload="auto", autobuffer, controls=false, autoplay="true", data={title:'Cumiana, NW Italy'}, crossorigin="anonymous")
+    source(src="https://crossorigin.me/http://78.46.38.217/vlf15")
+  audio(preload="auto", autobuffer, controls=false, autoplay="true", data={title:'Sheffield, UK'}, crossorigin="anonymous")
+    source(src="https://crossorigin.me/http://78.46.38.217/vlf3")
+  audio(preload="auto", autobuffer, controls=false, autoplay="true", data={title:'Hawley, Texas'}, crossorigin="anonymous")
+    source(src="https://crossorigin.me/http://78.46.38.217/vlf25")
+  include ../includes/parallax
