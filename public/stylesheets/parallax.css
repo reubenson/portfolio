@@ -18,25 +18,26 @@
  }
 
  .parallax_layer_base {
-   margin-top: -10vh;
+   /*margin-top: -10vh;*/
+   height: 100vh;
    -webkit-transform: translateZ(0);
    transform: translateZ(0);
    background-size: 100%;
-   background-image: url('/images/EliKeszler41041.jpg');
+   /*background-image: url('/images/EliKeszler41041.jpg');*/
    background-repeat: no-repeat;
  }
-/*
+
 .parallax_layer_base .title {
-  top: 25%;
+  top: 16%;
 }
 
 .parallax_layer_back .title {
   top: 25%;
-}*/
+}
 
- .parallax_layer_back {
-   top: 40%;
-   margin-top: 140vh;
+.parallax_layer_back {
+   /*top: 40%;*/
+   margin-top: 230vh;
    -webkit-transform: translateZ(-1px);
    transform: translateZ(-1px) scale(2);
    /*background-size: cover;*/
@@ -57,7 +58,7 @@
  .title {
    color: white;
    font-weight: 700;
-   font-size: 2em;
+   font-size: 13vw;
    letter-spacing: 0.5em;
    text-align: center;
    text-shadow: 5px 5px black;
@@ -67,3 +68,7 @@
    -webkit-transform: translate(-50%, -50%);
    transform: translate(-50%, -50%);
  }
+
+@media screen and (min-width: 600px) {
+  .title { font-size: 2.3em; }
+}

@@ -23,10 +23,17 @@ nav {
 
 nav .nav-item {
   margin: auto;
-  margin-top: 3px;
+  margin-top: 4px;
   padding-right: 0.3em;
   text-decoration: none;
   float: right;
+  color: black;
+  transition: color 2s;
+  -webkit-transition: color 2s;
+}
+
+nav .nav-item:hover {
+  color: white;
 }
 
 nav #logo {
@@ -95,8 +102,8 @@ a:hover { text-decoration: underline; }
 }
 
 section.projects {
-  /*width: 100vw;*/
   margin-top: 80vh;
+  border-top: solid black 2px;
   background-color: #e1e1e1;
 }
 
@@ -230,7 +237,7 @@ section.projects h2 {
 
 .project-description-text { display: none; }
 
-iframe { border: none; padding: 10px; }
+iframe { border: none; padding-bottom: 10px; }
 
 canvas {
   position: fixed;
