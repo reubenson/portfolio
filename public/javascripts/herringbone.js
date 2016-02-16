@@ -10,7 +10,7 @@ $(function(){
   herringbone.draw();
   herringbone.animate = false;
   herringbone.lastPaused = new Date().getTime();
-  $(window).on('click tap',function(event){
+  $(window).on('click touchend',function(event){
     if (event.target.parentNode == $('svg')[0] || event.target == $('body')[0] || event.target == $('#play')[0]) {
       herringbone.animate = !herringbone.animate;
       if (event.target.id  == 'play') { $(play).css('opacity',0); }
