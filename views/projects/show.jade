@@ -1,8 +1,7 @@
 extends ../layout
 
-
 block content
-  canvas
+  svg(data-fullscreen="true")
   .project-show
     h2(class='project-title')= title
     div(id= title.replace(' ','-'), class='project-show-image')

@@ -6,7 +6,6 @@ var router = express.Router();
 //   next();
 // });
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('projects/index', {
     title: "Reuben Son - Projects",
@@ -36,6 +35,15 @@ router.get('/private-chronology', function(req, res, next) {
 
 router.get('/ice', function(req, res) {
   res.render('projects/ice');
+});
+
+router.get('/august', function(req, res) {
+  var jade = require('jade');
+  res.render('projects/show', {title: "August", templateRender: jade.renderFile});
+});
+
+router.get('/herringbone', function(req, res) {
+  res.render('projects/herringbone');
 });
 
 module.exports = router;

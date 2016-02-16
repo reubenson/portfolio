@@ -239,9 +239,28 @@ section.projects h2 {
 
 iframe { border: none; padding-bottom: 10px; }
 
-canvas {
+#play {
+  font-size: 1.5em;
+  width: 80vw;
+  max-width: 15em;
+  margin: 40vh auto;
+  padding: 1em;
+  text-align: center;
+  opacity: 0.8;
+  background-color: white;
+  border: solid black 2px;
+  transition: opacity 2s;
+  -webkit-transition: opacity 2s;
+}
+
+svg {
   position: fixed;
   z-index: -2;
+}
+
+polygon {
+  transition: fill 10s;
+  -webkit-transition: fill 10s;
 }
 
 @media screen and (min-width: 600px) {
@@ -265,7 +284,7 @@ canvas {
   }
 
   .project {
-    min-width: 400px;
+    min-width: 450px;
     margin: 0px 20px 50px 20px;
   }
 }
