@@ -9,7 +9,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   var jade = require('jade');
   res.render('projects/index', {
-    title: "Projects",
+    title: "Reuben Son - Projects",
     projects: ["Birdr" , "Git-R" , "QCVG", "Private Chronology"],
     templateRender: jade.renderFile
   });

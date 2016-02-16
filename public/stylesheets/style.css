@@ -187,7 +187,8 @@ section.projects h2 {
 .project-description,
 .project-show {
   background-color: white;
-  /*opacity: 0.8;*/
+  font-size: 1.2em;
+  opacity: 0.95;
   padding: 2em;
   border: solid black 4px;
   text-align: justify;

@@ -7,10 +7,7 @@ var router = express.Router();
 // });
 
 router.get('/', function(req, res, next) {
-  res.render('projects/index', {
-    title: "Reuben Son - Projects",
-    projects: ["Birdr" , "Git-R" , "QCVG" , "Private Chronology"]
-  });
+  res.redirect("/");
 });
 
 router.get('/birdr', function(req, res, next) {
