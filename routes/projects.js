@@ -7,7 +7,13 @@ var router = express.Router();
 // });
 
 router.get('/', function(req, res, next) {
-  res.redirect("/");
+  res.redirect('/');
+  // var jade = require('jade');
+  // res.render('projects/index', {
+  //   title: "Reuben Son - Projects",
+  //   projects: ["Birdr" , "Git-R" , "QCVG", "Private Chronology"],
+  //   templateRender: jade.renderFile
+  // });
 });
 
 router.get('/birdr', function(req, res, next) {
