@@ -41,8 +41,9 @@ router.get('/ice', function(req, res) {
 });
 
 router.get('/august', function(req, res) {
-  var jade = require('jade');
-  res.render('projects/show', {title: "August", templateRender: jade.renderFile});
+  res.render('projects/august');
+  // var jade = require('jade');
+  // res.render('projects/show', {title: "August", templateRender: jade.renderFile});
 });
 
 router.get('/herringbone', function(req, res) {
