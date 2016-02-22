@@ -42,12 +42,14 @@ router.get('/ice', function(req, res) {
 
 router.get('/august', function(req, res) {
   res.render('projects/august');
-  // var jade = require('jade');
-  // res.render('projects/show', {title: "August", templateRender: jade.renderFile});
 });
 
 router.get('/herringbone', function(req, res) {
   res.render('projects/herringbone');
+});
+
+router.get('/bkm', function(req, res) {
+  res.render('projects/bkm');
 });
 
 module.exports = router;

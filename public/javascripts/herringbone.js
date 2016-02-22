@@ -8,7 +8,11 @@ $(function(){
 
   var herringbone = new Herringbone(svg);
   herringbone.update();
-  herringbone.animate = false;
+
+  if (svg.getAttribute("data-mode") != "text") {
+    herringbone.animate = false;
+  }
+
   $(window).on('click touchend',function(event){
     if (event.target.parentNode == $('svg')[0] || event.target == $('body')[0] || event.target == $('#play')[0]) {
       herringbone.switch();
@@ -36,7 +40,7 @@ Herringbone.prototype.initialize = function(svg) {
   switch (this.mode) {
     case "conway":
       this.blockMode = true;
-      this.fillColor = "black";
+      this.fillColor = "transparent";
       this.strokeColor = "white";
       break;
     case "text":
@@ -67,10 +71,10 @@ Herringbone.prototype.initialize = function(svg) {
 };
 
 Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
-  if (this.mode = "text") {
+  if (this.mode == "text") {
     var text = $('svg')[0].getAttribute("data-text");
-    this.cell_width = 30;
-    this.n_columns = 4 * text.length - 1;
+    this.cell_width = 25;
+    this.n_columns = 6 * text.length - 1;
   } else {
     cell_width = cell_width || randomNum(20,40);
     this.n_columns = Math.round(this.width/cell_width);
@@ -86,7 +90,7 @@ Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
 Herringbone.prototype.setRowHeightAndNumber = function(cell_height){
   if (this.mode == "text") {
     // var text = svg.getAttribute("data-mode")
-    this.cell_height = 10;
+    this.cell_height = 15;
     this.n_rows = 5;
   } else {
     cell_height = cell_height || randomNum(5,30);
@@ -238,7 +242,7 @@ Cell.prototype.updateFill = function() {
 Cell.prototype.getTypographyGrid = function() {
   var text = $('svg')[0].getAttribute("data-text").split("");
   var length = text.length;
-  var grid_size = [3 * length + length-1 , 5 ];
+  var grid_size = [5 * length + length-1 , 5 ];
   var grid = new Array();
   for (var i = 0; i < length; i++) {
     addToGrid();
@@ -246,9 +250,9 @@ Cell.prototype.getTypographyGrid = function() {
   return grid;
 
   function addToGrid() {
-    var squares = translateCharacter(text[i].toLowerCase());
+    var squares = translateCharacter_5(text[i].toLowerCase());
     for (var j = 0; j < squares.length; j++) {
-      var loc = [ (squares[j] % 3) + 4*i  , Math.floor( squares[j] / 3 ) ];
+      var loc = [ (squares[j] % 5) + 6*i  , Math.floor( squares[j] / 5 ) ];
       grid.push(loc);
     }
   }
@@ -288,7 +292,7 @@ function makeSVG(tag, attrs) {
      return el;
  }
 
-function translateCharacter(char) {
+function translateCharacter_3(char) {
 // characters are drawn on a 3x5 grid
 // adapted from http://lineto.com/1.0/content_82.html
   var table = {
@@ -305,7 +309,7 @@ function translateCharacter(char) {
     k: [0,2,3,5,6,7,9,11,12,14],
     l: [0,3,6,9,12,13,14],
     m: [0,2,3,4,5,6,7,8,9,11,12,14],
-    n: [0,2,3,4,5,6,8,9,10,11,12,14],
+    n: [0,2,3,4,5,6,7,8,9,10,11,12,14],
     o: [0,1,2,3,5,6,8,9,11,12,13,14],
     p: [0,1,2,3,5,6,7,8,9,12],
     q: [1,3,5,6,8,9,10,13,14],
@@ -315,6 +319,7 @@ function translateCharacter(char) {
     u: [0,2,3,5,6,8,9,11,12,13,14],
     v: [0,2,3,5,6,8,9,11,13],
     w: [0,2,3,5,6,7,8,9,10,11,12,14],
+    y: [0,2,3,5,7,10,13],
     x: [0,2,3,5,7,9,11,12,14],
     z: [0,1,2,5,7,9,12,13,14],
     '0': [0,1,2,3,5,6,8,9,11,12,13,14],
@@ -327,6 +332,51 @@ function translateCharacter(char) {
     '7': [0,1,2,5,7,9,12],
     '8': [1,3,5,7,9,11,13],
     '9': [1,3,5,7,8,11,12,13],
+    ' ': []
+  }
+  return table[char];
+}
+
+function translateCharacter_5(char) {
+// characters are drawn on a 5x5 grid
+// adapted from http://lineto.com/1.0/content_82.html
+  var table = {
+    'a': [1,2,3,5,9,10,11,12,13,14,15,19,20,24],
+    'b': [0,1,2,3,5,9,10,11,12,13,15,19,20,21,22,23],
+    'c': [1,2,3,5,9,10,15,19,21,22,23],
+    'd': [0,1,2,3,5,9,10,14,15,19,20,21,22,23],
+    'e': [0,1,2,3,4,5,10,11,12,13,15,20,21,22,23,24],
+    'f': [0,1,2,3,4,5,10,11,12,13,15,20],
+    'g': [1,2,3,4,5,10,12,13,14,15,19,21,22,23],
+    'h': [0,4,5,9,10,11,12,13,14,15,19,20,24],
+    'i': [0,1,2,3,4,7,12,17,20,21,22,23,24],
+    'j': [2,3,4,9,14,15,19,21,22,23],
+    'k': [0,4,5,8,10,11,12,15,18,20,24],
+    'l': [0,5,10,15,20,21,22,23,24],
+    'm': [0,4,5,6,8,9,10,12,14,15,17,19,20,24],
+    'n': [0,4,5,6,9,10,12,14,15,18,19,20,24],
+    'o': [1,2,3,5,9,10,14,15,19,21,22,23],
+    'p': [0,1,2,3,5,9,10,14,15,16,17,18,20],
+    'q': [1,2,3,5,9,10,12,14,15,18,21,22,24],
+    'r': [0,1,2,3,5,9,10,11,12,13,15,18,20,24],
+    's': [1,2,3,4,5,11,12,13,19,20,21,22,23],
+    't': [0,1,2,3,4,7,12,17,22],
+    'u': [0,4,5,9,10,14,15,19,21,22,23],
+    'v': [0,4,5,9,10,14,16,18,22],
+    'w': [0,4,5,7,9,10,12,14,15,17,19,21,23],
+    'x': [0,4,6,8,12,16,18,20,24],
+    'y': [0,4,5,9,11,12,13,17,22],
+    'z': [0,1,2,3,4,8,12,16,20,21,22,23,24],
+    '0': [1,2,3,5,8,9,10,12,14,15,16,19,21,22,23],
+    '1': [2,6,7,10,12,17,20,21,22,23,24],
+    '2': [1,2,3,5,9,12,13,16,20,21,22,23,24],
+    '3': [0,1,2,3,9,11,12,13,19,20,21,22,23],
+    '4': [0,3,5,8,11,12,13,14,18,23],
+    '5': [0,1,2,3,4,5,10,11,12,13,19,20,21,22,23],
+    '6': [1,2,3,4,5,10,11,12,13,15,19,21,22,23],
+    '7': [0,1,2,3,4,8,12,16,20],
+    '8': [1,2,3,5,9,11,12,13,15,19,21,22,23],
+    '9': [1,2,3,5,9,11,12,13,14,19,20,21,22,23],
     ' ': []
   }
   return table[char];
