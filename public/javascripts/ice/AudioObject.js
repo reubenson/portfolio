@@ -42,6 +42,11 @@ var AudioObject = function () {
 			this.gainNode.gain.value = this.envelope.level();
 		}
 
+		// static reset(){
+		// 	t0 = Date.now();
+		// 	// debugger;
+		// }
+
 		// static count() {
 		// 	var id = counter();
 		// 	return function() {
@@ -75,7 +80,7 @@ var Envelope = function () {
 	_createClass(Envelope, [{
 		key: 'setAttributes',
 		value: function setAttributes() {
-			if (productionMode || this.playCount == 0) {
+			if (productionMode || $('.readout') != []) {
 				this.rise = pickNum(this.riseRange) * 1000;
 				this.sustain = pickNum(this.sustainRange) * 1000;
 				this.fall = pickNum(this.fallRange) * 1000;
@@ -188,5 +193,11 @@ $(function () {
 		} else {
 			this.textContent = "Mute";
 		}
+	});
+
+	$(document).on('change', ':text', function () {
+		var id = $(this).parents(".readout").data('id');
+		t0 = Date.now();
+		// audioObjects[id].envelope.setAttributes();
 	});
 });

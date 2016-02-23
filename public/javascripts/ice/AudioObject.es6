@@ -28,11 +28,17 @@ class AudioObject {
 		this.title = $(audio_source).data().title;
 		this.envelope = new Envelope(this,score[this.title]);
 		this.envelope.offset = this.envelope.duration() * 0.5 * this.id;
+
 	}
 
 	updateGain() {
 		this.gainNode.gain.value = this.envelope.level();
 	}
+
+	// static reset(){
+	// 	t0 = Date.now();
+	// 	// debugger;
+	// }
 
 	// static count() {
 	// 	var id = counter();
@@ -59,7 +65,7 @@ class Envelope {
 	}
 
 	setAttributes(){
-		if (productionMode || this.playCount == 0) {
+		if (productionMode || $('.readout') != []) {
 			this.rise = pickNum(this.riseRange)*1000;
 			this.sustain = pickNum(this.sustainRange)*1000;
 			this.fall = pickNum(this.fallRange)*1000;
@@ -176,5 +182,11 @@ $(function(){
 		audioObjects[id].envelope.mute = !audioObjects[id].envelope.mute;
 		if (this.textContent == "Mute") { this.textContent = "Unmute"; }
 		else 														{ this.textContent = "Mute"; }
+	});
+
+	$(document).on('change', ':text', function(){
+		var id = $(this).parents(".readout").data('id');
+		t0 = Date.now();
+		// audioObjects[id].envelope.setAttributes();
 	})
 });
