@@ -18,7 +18,7 @@ var score = {
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
-    rest: [20,300],
+    rest: [0,20],
     durationOff: [500,600],
     durationOn: [300,400]
   },
@@ -26,7 +26,7 @@ var score = {
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
-    rest: [20,300],
+    rest: [0,20],
     durationOff: [500,600],
     durationOn: [300,400]
   },
@@ -34,7 +34,7 @@ var score = {
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
-    rest: [20,300],
+    rest: [0,20],
     durationOff: [500,600],
     durationOn: [300,400]
   },
@@ -42,7 +42,7 @@ var score = {
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
-    rest: [20,300],
+    rest: [0,20],
     durationOff: [500,600],
     durationOn: [300,400]
   },
@@ -50,7 +50,15 @@ var score = {
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
-    rest: [20,300],
+    rest: [0,20],
+    durationOff: [500,600],
+    durationOn: [300,400]
+  },
+  'hawley texas': {
+    fadeIn: [5,10],
+    sustain: [10,20],
+    fadeOut: [5,10],
+    rest: [0,20],
     durationOff: [500,600],
     durationOn: [300,400]
   },
@@ -59,15 +67,18 @@ var score = {
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
-    rest: [20,300],
+    rest: [0,20],
     durationOff: [500,600],
     durationOn: [300,400]
   },
-  'Todmorden, UK': [15,35,15],
-  'Cumiana, NW Italy': [10,40,10],
-  'Sebring, Florida': [18,8,28],
-  'Hawley, Texas': [41,20,14],
-  'Sheffield, UK': [20,20,20],
+  'cumiana italy': {
+    fadeIn: [5,10],
+    sustain: [10,20],
+    fadeOut: [5,10],
+    rest: [0,20],
+    durationOff: [500,600],
+    durationOn: [300,400]
+  },
   'violin': {
     fadeIn: [5,10],
     sustain: [10,20],

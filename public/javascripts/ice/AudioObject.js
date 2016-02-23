@@ -92,7 +92,7 @@ var Envelope = function () {
 	}, {
 		key: 'incrementPlayCount',
 		value: function incrementPlayCount() {
-			return this.playCount != Math.floor(elapsedTime() / this.duration());
+			return Math.floor(elapsedTime() / this.duration()) - this.playCount >= 1;
 		}
 	}, {
 		key: 'checkForReset',
@@ -105,7 +105,7 @@ var Envelope = function () {
 	}, {
 		key: 'level',
 		value: function level() {
-			// this.checkForReset();
+			this.checkForReset();
 			var t = elapsedTime() - this.offset * 0; // ms since start
 			var t_env = t % this.duration();
 			var amp = 0;
@@ -150,5 +150,5 @@ function updateReadout(id, level) {
 }
 
 function readoutTemplate(audioObject, level) {
-	return "<p>Track Title: " + audioObject.title + "</p>" + "<p>Rise Time: " + audioObject.envelope.rise / 1000.0 + " seconds</p>" + "<p>Sustain Time: " + audioObject.envelope.sustain / 1000.0 + " seconds</p>" + "<p>Fall Time: " + audioObject.envelope.fall / 1000.0 + " seconds</p>" + "<p>Rest Time: " + audioObject.envelope.rest / 1000.0 + " seconds</p>" + "<p>Amplitude Level: " + level.toFixed(2) + "</p>";
+	return "<p>Track Title: " + audioObject.title + "</p>" + "<p>Rise Time: " + audioObject.envelope.rise / 1000.0 + " seconds</p>" + "<p>Sustain Time: " + audioObject.envelope.sustain / 1000.0 + " seconds</p>" + "<p>Fall Time: " + audioObject.envelope.fall / 1000.0 + " seconds</p>" + "<p>Rest Time: " + audioObject.envelope.rest / 1000.0 + " seconds</p>" + "<p>Amplitude Level: " + level.toFixed(2) + "</p>" + "<input type='range' min='0' max='1' step='0.01' value='" + level.toFixed(2) + "'/>";;
 }

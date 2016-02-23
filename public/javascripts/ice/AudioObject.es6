@@ -71,7 +71,9 @@ class Envelope {
 
 	duration() { return (this.rise + this.sustain + this.fall + this.rest + this.durationOff*0 + this.durationOn*0); }
 
-	incrementPlayCount() { return this.playCount != Math.floor( elapsedTime() / this.duration() ); }
+	incrementPlayCount() {
+		return Math.floor( elapsedTime() / this.duration() ) - this.playCount >= 1;
+	}
 
 	checkForReset() {
 		if (this.incrementPlayCount()) {
@@ -81,7 +83,7 @@ class Envelope {
 	};
 
 	level() {
-		// this.checkForReset();
+		this.checkForReset();
 	  var t = ( elapsedTime()-this.offset*0 )			// ms since start
 	  var t_env = t % this.duration();
 	  var amp = 0;
@@ -127,5 +129,6 @@ function readoutTemplate(audioObject,level){
 				 "<p>Sustain Time: " + audioObject.envelope.sustain/1000.0 + " seconds</p>" +
 				 "<p>Fall Time: " + audioObject.envelope.fall/1000.0 + " seconds</p>" +
 				 "<p>Rest Time: " + audioObject.envelope.rest/1000.0 + " seconds</p>" +
-				 "<p>Amplitude Level: " + level.toFixed(2) + "</p>";
+				 "<p>Amplitude Level: " + level.toFixed(2) + "</p>" +
+				 "<input type='range' min='0' max='1' step='0.01' value='" + level.toFixed(2) + "'/>";;
 }

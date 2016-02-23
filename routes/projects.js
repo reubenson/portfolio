@@ -48,8 +48,5 @@ router.get('/herringbone', function(req, res) {
   res.render('projects/herringbone');
 });
 
-router.get('/bkm', function(req, res) {
-  res.render('projects/bkm');
-});
 
 module.exports = router;

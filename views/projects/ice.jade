@@ -1,20 +1,25 @@
 extends ../layout
 
 block content
+  link(rel='stylesheet', href='/stylesheets/ice.css')
   script(src='/javascripts/ice/AudioObject.js')
   script(src='/javascripts/ice/play.js')
-  audio(preload="auto", autobuffer, controls=false, loop="true", autoplay="true", data-title='barrage 1', crossorigin="anonymous")
-    source(src="../audios/barrage1.mp3")
-  audio(preload="auto", autobuffer, controls=false, loop="true", autoplay="true", data-title='barrage 2', crossorigin="anonymous")
-    source(src="../audios/barrage2.mp3")
-  audio(preload="auto", autobuffer, controls=false, loop="true", autoplay="true", data-title='alberta vlf', crossorigin="anonymous")
-    source(src="../audios/Alberta_VLF.mp3")
-  audio(preload="auto", autobuffer, controls=false, loop="true", autoplay="true", data-title='alberta vlf 2', crossorigin="anonymous")
-    source(src="../audios/Alberta_VLF_2.mp3")
-  audio(preload="auto", autobuffer, controls=false, loop="true", autoplay="true", data-title='alberta vlf 3', crossorigin="anonymous")
-    source(src="../audios/Alberta_VLF_3.mp3")
-  audio(preload="auto", autobuffer, controls=false, loop="true", autoplay="true", data-title='sheet metal', crossorigin="anonymous")
-    source(src="../audios/Sheet_metal.mp3")
+  audio(controls=false, loop="true", autoplay="true", data-title='barrage 1', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/barrage1.mp3")
+  audio(preload="auto", controls=false, loop="true", autoplay="true", data-title='barrage 2', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/barrage2.mp3")
+  audio(preload="auto", controls=false, loop="true", autoplay="true", data-title='alberta vlf', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/Alberta_VLF.mp3")
+  audio(preload="auto", controls=false, loop="true", autoplay="true", data-title='alberta vlf 2', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/Alberta_VLF_2.mp3")
+  audio(preload="auto", controls=false, loop="true", autoplay="true", data-title='alberta vlf 3', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/Alberta_VLF_3.mp3")
+  audio(preload="auto", controls=false, loop="true", autoplay="true", data-title='sheet metal', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/Sheet_metal.mp3")
+  audio(preload="auto", controls=false, loop="true", autoplay="true", data-title='cumiana italy', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/Cumiana_Italy.mp3")
+  audio(preload="auto", controls=false, loop="true", autoplay="true", data-title='hawley texas', crossorigin="anonymous")
+    source(src="https://s3.amazonaws.com/reubenson-portfolio/Hawley_Texas.mp3")
   // audio(preload="auto", autobuffer, controls=false, autoplay="true", data={title:'Todmorden, UK'}, crossorigin="anonymous")
   //   source(src="https://crossorigin.me/http://78.46.38.217/vlf1")
   // audio(preload="auto", autobuffer, controls=false, autoplay="true", data={title:'Cumiana, NW Italy'}, crossorigin="anonymous")
@@ -24,4 +29,4 @@ block content
   // audio(preload="auto", autobuffer, controls=false, autoplay="true", data={title:'Hawley, Texas'}, crossorigin="anonymous")
   //   source(src="https://crossorigin.me/http://78.46.38.217/vlf25")
   #readouts
-  include ../includes/parallax
+  // include ../includes/parallax
