@@ -20,7 +20,7 @@ $(function(){
     }
   });
 
-  var framerate = (svg.getAttribute("data-mode") == "conway") ? 2000 : 15;
+  var framerate = (svg.getAttribute("data-mode") == "conway") ? 2000 : 60;
   window.setInterval(function(){
     herringbone.update();
   },framerate);
@@ -41,7 +41,7 @@ Herringbone.prototype.initialize = function(svg) {
     case "conway":
       this.blockMode = true;
       this.fillColor = "transparent";
-      this.strokeColor = "white";
+      this.strokeColor = "black";
       break;
     case "text":
       this.blockMode = false;
@@ -73,10 +73,10 @@ Herringbone.prototype.initialize = function(svg) {
 Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
   if (this.mode == "text") {
     var text = $('svg')[0].getAttribute("data-text");
-    this.cell_width = 25;
+    this.cell_width = 20;
     this.n_columns = 6 * text.length - 1;
   } else {
-    cell_width = cell_width || randomNum(20,40);
+    cell_width = cell_width || randomNum(30,50);
     this.n_columns = Math.round(this.width/cell_width);
     this.cell_width = this.width/this.n_columns;
     if (this.blockMode) {
@@ -89,11 +89,10 @@ Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
 
 Herringbone.prototype.setRowHeightAndNumber = function(cell_height){
   if (this.mode == "text") {
-    // var text = svg.getAttribute("data-mode")
     this.cell_height = 15;
     this.n_rows = 5;
   } else {
-    cell_height = cell_height || randomNum(5,30);
+    cell_height = cell_height || this.cell_width * randomNum(50,100) / 200;
     this.n_rows = Math.round( (this.height - this.cell_width*0) / cell_height );
     this.cell_height = (this.height + 2*this.max_offset - this.cell_width) / (this.n_rows-1*0);
     if (this.blockMode) {
@@ -106,6 +105,9 @@ Herringbone.prototype.setRowHeightAndNumber = function(cell_height){
 
 Herringbone.prototype.addCells = function(svg) {
   this.cells = [];
+  var scaleWidth = (Math.random()+1)/1.0;
+  var scaleHeight = (Math.random()+1)/1.0;
+
   for (var i = 0; i < this.n_columns ; i++) {
     for (var j = 0; j < this.n_rows ; j++) {
       this.cells.push( new Cell({
@@ -115,16 +117,17 @@ Herringbone.prototype.addCells = function(svg) {
         fillColor: this.fillColor,
         mode: this.mode,
         svg: svg,
-        herringbone: this
-      })
-      );
+        herringbone: this,
+        xScale: scaleWidth,
+        yScale: scaleHeight
+      }));
     }
   }
 }
 
 Herringbone.prototype.switch = function() {
-  if (this.timer.paused) { this.timer.resume(); this.animate = false; }
-  else                   { this.timer.pause(); this.animate = true; }
+  if (this.animate) { this.pause() }
+  else              { this.resume() }
 }
 
 Herringbone.prototype.pause = function() {
@@ -163,18 +166,22 @@ function Cell(args) {
   this.x = args["x"];
   this.y = args["y"];
   this.center = [ this.x * width + width/2 + margin , this.y * height + height/2 + margin ];
-  this.tl = [this.center[0] - width/2 , this.center[1] - height/2];  // top-left
-  this.tr = [this.center[0] + width/2 , this.center[1] - height/2];  // top-right
-  this.br = [this.center[0] + width/2 , this.center[1] + height/2];  // bottom-right
-  this.bl = [this.center[0] - width/2 , this.center[1] + height/2];  // bottom-left
+
+  var xScale = args["xScale"];
+  var yScale = args["yScale"];
+
+  this.tl = [this.center[0] - xScale*width/2 , this.center[1] - yScale*height/2];  // top-left
+  this.tr = [this.center[0] + xScale*width/2 , this.center[1] - yScale*height/2];  // top-right
+  this.br = [this.center[0] + xScale*width/2 , this.center[1] + yScale*height/2];  // bottom-right
+  this.bl = [this.center[0] - xScale*width/2 , this.center[1] + yScale*height/2];  // bottom-left
   this.tl_0 = [this.tl[0] - this.center[0] , this.tl[1] - this.center[1]];
   this.tr_0 = [this.tr[0] - this.center[0] , this.tr[1] - this.center[1]];
   this.br_0 = [this.br[0] - this.center[0] , this.br[1] - this.center[1]];
   this.bl_0 = [this.bl[0] - this.center[0] , this.bl[1] - this.center[1]];
-  this.lineWidth = 2;
+  this.lineWidth = 1;
 
   var points = [this.tl,this.tr,this.br,this.bl].join();
-  this.svg_el = makeSVG('polygon', {points: points, stroke: strokeColor, 'stroke-width': '1', 'fill': fillColor, 'fill-opacity': '1.0'});
+  this.svg_el = makeSVG('polygon', {points: points, stroke: strokeColor, 'stroke-width': this.lineWidth, 'fill': fillColor, 'fill-opacity': '1.0'});
   if (this.mode == "conway") {
     if (Math.random() <= 0.5) { this.svg_el.setAttribute('fill','black'); }
   }
@@ -196,8 +203,8 @@ Cell.prototype.draw = function(offset) {
 
 Cell.prototype.drawTile = function() {
   var herringbone = Herringbone.instances[this.herringbone_id];
-  var width = herringbone.cell_width;
-  var height = herringbone.cell_height;
+  var width = herringbone.cell_width ;
+  var height = herringbone.cell_height ;
   var angle = Math.PI*0.25;
   var x_offset = 0;
   var y_offset = 0;
@@ -383,19 +390,16 @@ function translateCharacter_5(char) {
 }
 
 function Timer() {
-  this.paused = false;
   this.lastPaused = new Date().getTime();
   this.lastPlayed = this.lastPaused;
 }
 
 Timer.prototype.pause = function(){
   this.lastPaused = new Date().getTime();
-  this.paused = true;
 }
 
 Timer.prototype.resume = function(){
   this.lastPlayed = new Date().getTime();
-  this.paused = false;
 }
 
 Timer.prototype.now = function(){

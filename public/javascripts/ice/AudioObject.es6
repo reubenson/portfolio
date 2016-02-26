@@ -34,18 +34,6 @@ class AudioObject {
 	updateGain() {
 		this.gainNode.gain.value = this.envelope.level();
 	}
-
-	// static reset(){
-	// 	t0 = Date.now();
-	// 	// debugger;
-	// }
-
-	// static count() {
-	// 	var id = counter();
-	// 	return function() {
-	// 		return id();
-	// 	}
-	// };
 }
 
 class Envelope {
