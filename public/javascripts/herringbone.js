@@ -73,7 +73,7 @@ Herringbone.prototype.initialize = function(svg) {
 Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
   if (this.mode == "text") {
     var text = $('svg')[0].getAttribute("data-text");
-    this.cell_width = 20;
+    this.cell_width = 30;
     this.n_columns = 6 * text.length - 1;
   } else {
     cell_width = cell_width || randomNum(30,50);
@@ -89,7 +89,7 @@ Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
 
 Herringbone.prototype.setRowHeightAndNumber = function(cell_height){
   if (this.mode == "text") {
-    this.cell_height = 15;
+    this.cell_height = 10;
     this.n_rows = 5;
   } else {
     cell_height = cell_height || this.cell_width * randomNum(50,100) / 200;
@@ -169,6 +169,8 @@ function Cell(args) {
 
   var xScale = args["xScale"];
   var yScale = args["yScale"];
+  xScale = 1;
+  yScale = 1;
 
   this.tl = [this.center[0] - xScale*width/2 , this.center[1] - yScale*height/2];  // top-left
   this.tr = [this.center[0] + xScale*width/2 , this.center[1] - yScale*height/2];  // top-right

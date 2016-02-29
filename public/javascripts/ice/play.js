@@ -15,6 +15,7 @@ window.setInterval(updateAudioObjects, 100);
 // randomize instrumental sources
 var score = {
   'barrage 1': {
+    amplitude: 0.2,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -23,6 +24,7 @@ var score = {
     durationOn: [300,400]
   },
   'barrage 2': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -31,6 +33,7 @@ var score = {
     durationOn: [300,400]
   },
   'alberta vlf': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -39,6 +42,7 @@ var score = {
     durationOn: [300,400]
   },
   'alberta vlf 2': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -47,6 +51,7 @@ var score = {
     durationOn: [300,400]
   },
   'alberta vlf 3': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -55,6 +60,7 @@ var score = {
     durationOn: [300,400]
   },
   'hawley texas': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -64,6 +70,7 @@ var score = {
   },
   'violin x': [5,15,10],
   'sheet metal': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -72,6 +79,7 @@ var score = {
     durationOn: [300,400]
   },
   'cumiana italy': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],
@@ -80,6 +88,7 @@ var score = {
     durationOn: [300,400]
   },
   'violin': {
+    amplitude: 1.0,
     fadeIn: [5,10],
     sustain: [10,20],
     fadeOut: [5,10],

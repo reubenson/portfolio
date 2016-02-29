@@ -1,6 +1,6 @@
 'use strict'
 
-var productionMode = false;
+var prototypeMode = false;
 
 function counter() {
 	var i = 0;
@@ -39,6 +39,7 @@ class AudioObject {
 class Envelope {
 	constructor(audioObject,args){
 		this.audioObjectId = audioObject.id;
+		this.amplitude = args.amplitude;
 		this.riseRange = args.fadeIn;
 		this.sustainRange = args.sustain;
 		this.fallRange = args.fadeOut;
@@ -49,11 +50,13 @@ class Envelope {
 		this.mute = false;
 		this.setAttributes();
 
-		appendReadout(audioObject,this);
+		if (prototypeMode) {
+			appendReadout(audioObject,this);
+		}
 	}
 
 	setAttributes(){
-		if (productionMode || $('.readout') != []) {
+		if (!prototypeMode || $('.readout') != []) {
 			this.rise = pickNum(this.riseRange)*1000;
 			this.sustain = pickNum(this.sustainRange)*1000;
 			this.fall = pickNum(this.fallRange)*1000;
@@ -100,8 +103,10 @@ class Envelope {
 			amp = 0;
 		}
 
-		updateReadout(this.audioObjectId,amp);
-	  return amp;
+		if (prototypeMode) {
+			updateReadout(this.audioObjectId,amp);
+		}
+	  return amp * this.amplitude;
 	}
 
 	readout() {
@@ -118,22 +123,19 @@ function appendReadout(audioObject,envelope) {
   $('#readouts').append(newReadout);
 	var readout = $('.readout').last()[0];
 	readout.innerHTML = prototypingTemplate(audioObject.title,envelope,0);
-	// debugger;
 }
 
 function updateReadout(id,level) {
 	var audioObject = audioObjects[id];
 	var table = $('.readout').find('table')[id];
-	if (productionMode) {
+	// if (prototypeMode) {
 		$(table).find('td')[1].innerHTML = audioObject.envelope.rise/1000.0;
 		$(table).find('td')[3].innerHTML = audioObject.envelope.sustain/1000.0;
 		$(table).find('td')[5].innerHTML = audioObject.envelope.fall/1000.0;
 		$(table).find('td')[7].innerHTML = audioObject.envelope.rest/1000.0;
-	}
+	// }
 	$(table).find('td')[9].innerHTML = level.toFixed(2);
 	$(table).find('input:last')[0].value = level.toFixed(2);
-	// var readout = $('.readout')[id];
-	// readout.innerHTML = readoutTemplate(audioObjects[id],level);
 }
 
 function readoutTemplate(title,envelope,level){
@@ -166,7 +168,6 @@ function prototypingTemplate(title,envelope,level){
 $(function(){
 	$(document).on('click','button',function(){
 		var id = $(this).parents(".readout").data('id');
-		// debugger;
 		audioObjects[id].envelope.mute = !audioObjects[id].envelope.mute;
 		if (this.textContent == "Mute") { this.textContent = "Unmute"; }
 		else 														{ this.textContent = "Mute"; }
@@ -175,6 +176,5 @@ $(function(){
 	$(document).on('change', ':text', function(){
 		var id = $(this).parents(".readout").data('id');
 		t0 = Date.now();
-		// audioObjects[id].envelope.setAttributes();
 	})
 });
