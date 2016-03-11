@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #about
+    include includes/about
+  #main
+    svg(data-fullscreen="true", data-mode="background")
+    include includes/projects

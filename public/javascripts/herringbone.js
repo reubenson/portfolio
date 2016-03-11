@@ -36,12 +36,13 @@ Herringbone.prototype.initialize = function(svg) {
   this.timer = new Timer();
   this.animate = true;
   this.blockMode = false;
+  this.textOrientation = "vertical";
   this.mode = svg.getAttribute("data-mode");
   switch (this.mode) {
     case "conway":
       this.blockMode = true;
       this.fillColor = "transparent";
-      this.strokeColor = "black";
+      this.strokeColor = "white";
       break;
     case "text":
       this.blockMode = false;
@@ -65,6 +66,9 @@ Herringbone.prototype.initialize = function(svg) {
 
   this.setColumnWidthAndNumber();
   this.setRowHeightAndNumber();
+  if (this.mode == "text") {
+    resizeSVG(this);
+  }
 
   this.id = Herringbone.instances.length
   Herringbone.instances.push(this);
@@ -72,9 +76,13 @@ Herringbone.prototype.initialize = function(svg) {
 
 Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
   if (this.mode == "text") {
-    var text = $('svg')[0].getAttribute("data-text");
-    this.cell_width = 30;
-    this.n_columns = 6 * text.length - 1;
+    this.cell_width = 25;
+    if (this.textOrientation == 'horizontal') {
+      this.n_columns = 6 * text.length - 1;
+    } else if (this.textOrientation == 'vertical') {
+      var text = $('svg')[0].getAttribute("data-text");
+      this.n_columns = text.split(" ").length*5 + 1
+    }
   } else {
     cell_width = cell_width || randomNum(30,50);
     this.n_columns = Math.round(this.width/cell_width);
@@ -89,8 +97,17 @@ Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
 
 Herringbone.prototype.setRowHeightAndNumber = function(cell_height){
   if (this.mode == "text") {
-    this.cell_height = 10;
-    this.n_rows = 5;
+    this.cell_height = 15;
+    if (this.textOrientation == 'horizontal') {
+      this.n_rows = 5;
+    } else if (this.textOrientation == 'vertical') {
+      var text = $('svg')[0].getAttribute("data-text");
+      var words = text.split(" ");
+      var length = _.reduce(words,function(result,word){
+        return result > word.length ? result : word.length
+      },0)
+      this.n_rows = length * 6 - 1;
+    }
   } else {
     cell_height = cell_height || this.cell_width * randomNum(50,100) / 200;
     this.n_rows = Math.round( (this.height - this.cell_width*0) / cell_height );
@@ -119,7 +136,8 @@ Herringbone.prototype.addCells = function(svg) {
         svg: svg,
         herringbone: this,
         xScale: scaleWidth,
-        yScale: scaleHeight
+        yScale: scaleHeight,
+        textOrientation: this.textOrientation
       }));
     }
   }
@@ -157,6 +175,8 @@ Herringbone.prototype.update = function(){
 function Cell(args) {
   this.herringbone_id = args["herringbone"].id;
   this.mode = args["herringbone"].mode;
+  Cell.textOrientation = args["herringbone"].textOrientation;
+  Cell.animationAttr = 'fill';
   var strokeColor = args["strokeColor"];
   var fillColor = args["fillColor"];
   var svg = args["svg"];
@@ -185,7 +205,7 @@ function Cell(args) {
   var points = [this.tl,this.tr,this.br,this.bl].join();
   this.svg_el = makeSVG('polygon', {points: points, stroke: strokeColor, 'stroke-width': this.lineWidth, 'fill': fillColor, 'fill-opacity': '1.0'});
   if (this.mode == "conway") {
-    if (Math.random() <= 0.5) { this.svg_el.setAttribute('fill','black'); }
+    if (Math.random() <= 0.5) { this.svg_el.setAttribute(Cell.animationAttr,'black'); }
   }
   svg.appendChild(this.svg_el);
 };
@@ -235,13 +255,13 @@ Cell.prototype.drawTile = function() {
 
 Cell.prototype.updateFill = function() {
   if (this.mode == "conway") {
-    if (this.adjacent()) { this.svg_el.setAttribute('fill','black'); }
-    else                 { this.svg_el.setAttribute('fill','transparent'); }
+    if (this.adjacent()) { this.svg_el.setAttribute(Cell.animationAttr,'black'); }
+    else                 { this.svg_el.setAttribute(Cell.animationAttr,'transparent'); }
   } else if (this.mode == "text") {
     var coloredCells = this.getTypographyGrid();
     for (var i = 0; i < coloredCells.length; i++) {
       if (this.x == coloredCells[i][0] && this.y == coloredCells[i][1]) {
-        this.svg_el.setAttribute('fill','black');
+        this.svg_el.setAttribute(Cell.animationAttr,'black');
         break;
       }
     }
@@ -249,19 +269,38 @@ Cell.prototype.updateFill = function() {
 }
 
 Cell.prototype.getTypographyGrid = function() {
-  var text = $('svg')[0].getAttribute("data-text").split("");
-  var length = text.length;
-  var grid_size = [5 * length + length-1 , 5 ];
+  var words = $('svg')[0].getAttribute("data-text").split(" ");
+  // for (var i = 0; i < words.length; i++) {
+  //   words[i] = words[i].split("");
+  // }
+  // var text = $('svg')[0].getAttribute("data-text").split("");
+  // var length = words.length;
+  // var grid_size;
+  // if (Cell.textOrientation == 'horizontal') {
+  //   grid_size = [5 * length + length-1 , 5 ];
+  // } else {
+  //   grid_size = [5 , 5 * length + length-1];
+  // }
   var grid = new Array();
-  for (var i = 0; i < length; i++) {
-    addToGrid();
+  var gridWidth = 6 * words.length - 1;
+  for (var i = 0; i < words.length; i++) {
+    var letters = words[i].split("");
+    for (var j = 0; j < letters.length; j++) {
+      addToGrid(i,j);
+    }
   }
   return grid;
 
-  function addToGrid() {
-    var squares = translateCharacter_5(text[i].toLowerCase());
-    for (var j = 0; j < squares.length; j++) {
-      var loc = [ (squares[j] % 5) + 6*i  , Math.floor( squares[j] / 5 ) ];
+  function addToGrid(i,j) {
+    var squares = translateCharacter_5(letters[j].toLowerCase());
+    for (var k = 0; k < squares.length; k++) {
+      var loc;
+      if (Cell.textOrientation == 'horizontal') {
+        loc = [ (squares[k] % 5) + 6*j , Math.floor( squares[k] / 5 ) ];
+      } else if (Cell.textOrientation == 'vertical') {
+
+        loc = [ (6*i + squares[k]%5) , Math.floor( squares[k]/5) + 6*j ];
+      }
       grid.push(loc);
     }
   }
@@ -270,16 +309,16 @@ Cell.prototype.getTypographyGrid = function() {
 Cell.prototype.adjacent = function() {
   var num = 0;
   var herringbone = Herringbone.instances[this.herringbone_id];
-  if (herringbone.cells[index(this.x-1,this.y-1)].svg_el.getAttribute('fill') != "transparent") { num++ }
-  if (herringbone.cells[index(this.x,this.y-1)].svg_el.getAttribute('fill') != "transparent") { num++ }
-  if (herringbone.cells[index(this.x+1,this.y-1)].svg_el.getAttribute('fill') != "transparent") { num++ }
-  if (herringbone.cells[index(this.x-1,this.y)].svg_el.getAttribute('fill') != "transparent") { num++ }
-  if (herringbone.cells[index(this.x+1,this.y)].svg_el.getAttribute('fill') != "transparent") { num++ }
-  if (herringbone.cells[index(this.x-1,this.y+1)].svg_el.getAttribute('fill') != "transparent") { num++ }
-  if (herringbone.cells[index(this.x,this.y+1)].svg_el.getAttribute('fill') != "transparent") { num++ }
-  if (herringbone.cells[index(this.x+1,this.y+1)].svg_el.getAttribute('fill') != "transparent") { num++ }
+  if (herringbone.cells[index(this.x-1,this.y-1)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
+  if (herringbone.cells[index(this.x,this.y-1)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
+  if (herringbone.cells[index(this.x+1,this.y-1)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
+  if (herringbone.cells[index(this.x-1,this.y)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
+  if (herringbone.cells[index(this.x+1,this.y)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
+  if (herringbone.cells[index(this.x-1,this.y+1)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
+  if (herringbone.cells[index(this.x,this.y+1)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
+  if (herringbone.cells[index(this.x+1,this.y+1)].svg_el.getAttribute(Cell.animationAttr) != "transparent") { num++ }
 
-  var alive = herringbone.cells[index(this.x-1,this.y-1)].svg_el.getAttribute('fill') != "transparent" ? true : false;
+  var alive = herringbone.cells[index(this.x-1,this.y-1)].svg_el.getAttribute(Cell.animationAttr) != "transparent" ? true : false;
   if (alive) {
     if (num < 2 || num >3) { return false }
     else { return true }
@@ -411,3 +450,11 @@ Timer.prototype.now = function(){
 function randomNum(min,max){
   return Math.round((Math.random() * (max-min)) + min);
 };
+
+function resizeSVG(herringbone) {
+  var svg = document.querySelector("svg");
+  var width = 1.2 * herringbone.cell_width * herringbone.n_columns;
+  var height = 1.2 * herringbone.cell_height * herringbone.n_rows;
+  svg.setAttribute('width', width);
+  svg.setAttribute('height', height);
+}

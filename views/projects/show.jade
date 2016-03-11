@@ -5,6 +5,4 @@ block content
   .project-show
     h2(class='project-title')= title
     div(id= title.replace(' ','-'), class='project-show-image')
-    //.project-image
-      //img(src='/images/'+title+'.jpg')
     != templateRender('projects/'+title.replace(' ','-')+'.html')

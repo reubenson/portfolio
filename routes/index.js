@@ -3,9 +3,8 @@ var router = express.Router();
 var jade = require('jade');
 
 router.get('/', function(req, res, next) {
-  res.render('projects/index', {
-    title: "Reuben Son - Projects",
-    projects: ["Birdr" , "Git-R" , "QCVG", "Private Chronology"],
+  res.render('index', {
+    title: "Reuben Son",
     templateRender: jade.renderFile
   });
 });

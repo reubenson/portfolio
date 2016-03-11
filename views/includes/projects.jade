@@ -1,0 +1,14 @@
+-
+  projects = ["Birdr" , "Git-R" , "QCVG", "Private Chronology"]
+
+section("projects",class="projects")
+  h2
+   a(href='projects') Projects
+  .projects-index
+    each project in projects
+        div(id=project.replace(' ','-'), class='project')
+          .project-description
+            h3
+              a(href='projects/'+project.replace(' ','-'))= project
+            .project-description-text
+              != templateRender('projects/'+project.replace(' ','-')+'.html')

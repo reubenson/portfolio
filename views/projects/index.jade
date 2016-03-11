@@ -1,15 +1,4 @@
 extends ../layout
 
 block content
-  #about
-    include ../../public/about.html
-  section("projects",class="projects")
-    h2 Projects
-    .projects-index
-      each project in projects
-          div(id=project.replace(' ','-'), class='project')
-            .project-description
-              h3
-                a(href='projects/'+project.replace(' ','-'))= project
-              .project-description-text
-                != templateRender('projects/'+project.replace(' ','-')+'.html')
+  include ../includes/projects

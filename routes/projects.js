@@ -6,11 +6,14 @@ var projects = {
   "birdr": "Birdr",
   "git-r": "Git-R",
   "qcvg": "QCVG",
-  "private chronology": "Private Chronology"
+  "private-chronology": "Private Chronology"
 }
 
 router.get('/', function(req, res, next) {
-  res.redirect('/');
+  res.render('projects/index', {
+    title: "Reuben Son - Projects",
+    templateRender: jade.renderFile
+  });
 });
 
 router.get('/ice', function(req, res) {

@@ -101,8 +101,11 @@ a:hover { text-decoration: underline; }
   border: solid black 2px;
 }
 
-section.projects {
+#main {
   margin-top: 80vh;
+}
+
+section.projects {
   border-top: solid black 2px;
   background-color: #e1e1e1;
 }
@@ -114,8 +117,6 @@ section.projects h2 {
   border-bottom: solid black 3px;
   color: black;
   font-weight: 400;
-  /*text-shadow: 4px 3px black;*/
-
 }
 
 .projects-index {
@@ -265,9 +266,6 @@ polygon {
 }
 
 @media screen and (min-width: 600px) {
-  #about img {
-    /*display: block;*/
-  }
 
   #about h2 {
     font-size: 1.5em;
