@@ -1,29 +1,36 @@
 "use-strict";
 
 $(function(){
-  if ($('svg').length == 0) { return }
-  var svg = document.querySelector("svg");
-  svg.setAttribute('width', $(window).width());
-  svg.setAttribute('height', $(window).height());
-
-  var herringbone = new Herringbone(svg);
-  herringbone.update();
-
-  if (svg.getAttribute("data-mode") != "text") {
-    herringbone.animate = false;
+  // if ($('svg').length == 0) { return }
+  var svgs = document.querySelectorAll("svg");
+  for (var i = 0; i < svgs.length; i++) {
+    initializeSVG(svgs[i]);
   }
 
-  $(window).on('click touchend',function(event){
-    if (event.target.parentNode == $('svg')[0] || event.target == $('body')[0] || event.target == $('#play')[0]) {
-      herringbone.switch();
-      if (event.target.id  == 'play') { $(play).css('opacity',0); }
-    }
-  });
+  function initializeSVG(svg) {
+    svg.setAttribute('width', $(window).width());
+    svg.setAttribute('height', $(window).height());
 
-  var framerate = (svg.getAttribute("data-mode") == "conway") ? 2000 : 60;
-  window.setInterval(function(){
+    var herringbone = new Herringbone(svg);
     herringbone.update();
-  },framerate);
+
+    if (svg.getAttribute("data-mode") != "text") {
+      herringbone.animate = false;
+    }
+    herringbone.animate = false;
+
+    $(window).on('click touchend',function(event){
+      if (event.target.parentNode == $('svg')[0] || event.target == $('body')[0] || event.target == $('#play')[0]) {
+        herringbone.switch();
+        if (event.target.id  == 'play') { $(play).css('opacity',0); }
+      }
+    });
+
+    var framerate = (svg.getAttribute("data-mode") == "conway") ? 2000 : 60;
+    window.setInterval(function(){
+      herringbone.update();
+    },framerate);
+  }
 });
 
 function Herringbone(svg){
@@ -33,16 +40,17 @@ function Herringbone(svg){
 
 Herringbone.prototype.initialize = function(svg) {
   Herringbone.instances = Herringbone.instances || [];
+  this.svg = svg;
   this.timer = new Timer();
   this.animate = true;
   this.blockMode = false;
   this.textOrientation = "vertical";
-  this.mode = svg.getAttribute("data-mode");
+  this.mode = this.svg.getAttribute("data-mode");
   switch (this.mode) {
     case "conway":
-      this.blockMode = true;
-      this.fillColor = "transparent";
-      this.strokeColor = "white";
+      this.blockMode = false;
+      this.fillColor = "white";
+      this.strokeColor = "black";
       break;
     case "text":
       this.blockMode = false;
@@ -52,20 +60,20 @@ Herringbone.prototype.initialize = function(svg) {
     case "background":
       this.blockMode = false;
       this.fillColor = "transparent";
-      this.strokeColor = "white";
+      this.strokeColor = "black";
       break;
   }
   this.max_offset = 20;
   this.frequency = 0.5;
-  if (svg.getAttribute("data-fullscreen") == "true") {
+  if (this.svg.getAttribute("data-fullscreen") == "true") {
     this.margin = -this.max_offset;
   }
   else { this.margin = 2*this.max_offset; }
-  this.height = $('svg').height()-this.margin*2;
-  this.width = $('svg').width()-this.margin*2;
+  this.height = this.svg.clientHeight-this.margin*2;
+  this.width = this.svg.clientWidth-this.margin*2;
 
-  this.setColumnWidthAndNumber();
-  this.setRowHeightAndNumber();
+  this.setColumnWidthAndNumber(20);
+  this.setRowHeightAndNumber(10);
   if (this.mode == "text") {
     resizeSVG(this);
   }
@@ -80,7 +88,7 @@ Herringbone.prototype.setColumnWidthAndNumber = function(cell_width){
     if (this.textOrientation == 'horizontal') {
       this.n_columns = 6 * text.length - 1;
     } else if (this.textOrientation == 'vertical') {
-      var text = $('svg')[0].getAttribute("data-text");
+      var text = this.svg.getAttribute("data-text");
       this.n_columns = text.split(" ").length*5 + 1
     }
   } else {
@@ -101,7 +109,7 @@ Herringbone.prototype.setRowHeightAndNumber = function(cell_height){
     if (this.textOrientation == 'horizontal') {
       this.n_rows = 5;
     } else if (this.textOrientation == 'vertical') {
-      var text = $('svg')[0].getAttribute("data-text");
+      var text = this.svg.getAttribute("data-text");
       var words = text.split(" ");
       var length = _.reduce(words,function(result,word){
         return result > word.length ? result : word.length
@@ -120,7 +128,7 @@ Herringbone.prototype.setRowHeightAndNumber = function(cell_height){
   }
 }
 
-Herringbone.prototype.addCells = function(svg) {
+Herringbone.prototype.addCells = function() {
   this.cells = [];
   var scaleWidth = (Math.random()+1)/1.0;
   var scaleHeight = (Math.random()+1)/1.0;
@@ -133,7 +141,7 @@ Herringbone.prototype.addCells = function(svg) {
         strokeColor: this.strokeColor,
         fillColor: this.fillColor,
         mode: this.mode,
-        svg: svg,
+        svg: this.svg,
         herringbone: this,
         xScale: scaleWidth,
         yScale: scaleHeight,
@@ -200,7 +208,7 @@ function Cell(args) {
   this.tr_0 = [this.tr[0] - this.center[0] , this.tr[1] - this.center[1]];
   this.br_0 = [this.br[0] - this.center[0] , this.br[1] - this.center[1]];
   this.bl_0 = [this.bl[0] - this.center[0] , this.bl[1] - this.center[1]];
-  this.lineWidth = 1;
+  this.lineWidth = 2;
 
   var points = [this.tl,this.tr,this.br,this.bl].join();
   this.svg_el = makeSVG('polygon', {points: points, stroke: strokeColor, 'stroke-width': this.lineWidth, 'fill': fillColor, 'fill-opacity': '1.0'});
@@ -261,7 +269,8 @@ Cell.prototype.updateFill = function() {
     var coloredCells = this.getTypographyGrid();
     for (var i = 0; i < coloredCells.length; i++) {
       if (this.x == coloredCells[i][0] && this.y == coloredCells[i][1]) {
-        this.svg_el.setAttribute(Cell.animationAttr,'black');
+        this.svg_el.setAttribute('stroke','white');
+        this.svg_el.setAttribute(Cell.animationAttr,'white');
         break;
       }
     }
