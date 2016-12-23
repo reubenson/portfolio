@@ -4,7 +4,6 @@ var jade = require('jade');
 
 var projects = {
   "birdr": "Birdr",
-  "git-r": "Git-R",
   "qcvg": "QCVG",
   "private-chronology": "Private Chronology"
 }
