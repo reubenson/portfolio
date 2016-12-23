@@ -72,8 +72,8 @@ Herringbone.prototype.initialize = function(svg) {
   this.height = this.svg.clientHeight-this.margin*2;
   this.width = this.svg.clientWidth-this.margin*2;
 
-  this.setColumnWidthAndNumber(20);
-  this.setRowHeightAndNumber(10);
+  this.setColumnWidthAndNumber(30);
+  this.setRowHeightAndNumber(15);
   if (this.mode == "text") {
     resizeSVG(this);
   }
