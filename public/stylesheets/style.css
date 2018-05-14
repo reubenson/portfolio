@@ -5,7 +5,6 @@ body {
   font-weight: 300;
   font-family: "Raleway", "Open Sans", Helvetical, Arial, sans-serif;
   background-color: #DDDDDD;
-  /*perspective: 1px;*/
 }
 
 nav {
@@ -17,7 +16,6 @@ nav {
   background-color: grey;
   border-bottom: solid black 2px;
   font-size: 1.6em;
-  opacity: 0.9;
   z-index: 2;
 }
 
@@ -68,13 +66,12 @@ a:hover { text-decoration: underline; }
 #about {
   position: fixed;
   margin: 0px;
-  height: 80vh;
+  height: 100vh;
   width: 100%;
   background-image: url('/images/studio.jpg');
   background-size: cover;
-  background-position: right;
+  background-position: 75% 50%;
   z-index: -1;
-  /*transform: translateZ(-1px);*/
 }
 
 #about h2 {
@@ -102,12 +99,29 @@ a:hover { text-decoration: underline; }
 }
 
 #main {
-  margin-top: 80vh;
+  background-color: #f0f0e6;
+  border: solid black 2px;
+  box-sizing: border-box;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 100vh;
+  max-width: 560px;
+  padding: 20px;
+  position: relative;
+  width: calc(100vw - 40px);
 }
 
-section.projects {
-  border-top: solid black 2px;
-  background-color: #e1e1e1;
+.main-background {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
+section.about {
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 10px;
 }
 
 section.projects h2 {
@@ -121,85 +135,36 @@ section.projects h2 {
 
 .projects-index {
   z-index: 1;
-
-  display: flex;
-  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-  display: -webkit-box-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;      /* TWEENER - IE 10 */
-  display: -webkit-flex;
-
-  flex-wrap: wrap;
-  -webkit-box-wrap: wrap;
-  -webkit-box-flex-wrap: wrap;
-  -ms-flexbox-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-
-  flex-direction: row;
-  -webkit-box-direction: row;
-  -webkit-box-flex-direction: row;
-  -ms-flexbox-direction: row;
-  -webkit-flex-direction: row;
-
-
-  /*justify-content: space-around;
-
-  display: -ms-Flexbox;
-	-ms-box-orient: horizontal;
-
-
-  flex-flow: row wrap;
-  -webkit-flex-flow: row wrap;
-	-moz-flex-flow: row wrap;
-	-ms-flex-flow: row wrap;
-
-  align-content: flex-start;
-  align-items: flex-start;*/
 }
 
 .projects-index h3 {
-  text-align: center;
-  margin: auto;
-  font-weight: 400;
-  letter-spacing: 0.4em;
   border-bottom: solid black 2px;
+  margin: auto auto 10px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 .project {
   background-position: center;
   background-size: cover;
-  padding: 40px;
-  border: solid black 2px;
-  margin: 0px 0px 5px 0px;
-  width: 90vw;
-  max-height: 560px;
-  overflow: scroll;
   font-size: 0.9em;
+  margin: auto auto 40px;
   z-index: 1;
-
-  -webkit-box-flex: 1 1 400px;   /* OLD - iOS 6-, Safari 3.1-6 */
-  -webkit-box: 1 1 400px;
-  -webkit-flex: 1 1 400px;       /* Safari 6.1+. iOS 7.1+, BB10 */
-  -moz-flex: 1 1 400px;
-  -ms-flex: 1 1 400px;           /* IE 10 */
-  flex: 1 1 400px;
 }
 
 .project-description,
 .project-show {
-  background-color: white;
   font-size: 1.1em;
-  opacity: 1;
-  padding: 2em;
-  border: solid black 4px;
-  text-align: justify;
 }
 
 .project-show {
+  background-color: #f0f0e6;
+  border: solid black 2px;
   margin-top: 40px;
-  width: 80vw;
   max-width: 800px;
   margin: 40px auto;
+  padding: 30px;
+  width: 80vw;
   z-index: 1;
 }
 
@@ -214,12 +179,13 @@ section.projects h2 {
 }
 
 .project-show-image {
-  width: 100%;
-  border: solid black 3px;
-  height: 200px;
   background-size: cover;
   background-position: center;
+  border: solid black 3px;
+  box-sizing: border-box;
+  height: 200px;
   overflow: hidden;
+  width: 100%;
 }
 
 .project-link {
@@ -237,7 +203,21 @@ section.projects h2 {
 
 #Private-Chronology { background-image: url("/images/private-chronology.jpg"); }
 
-.project-description-text { display: none; }
+#CV {
+  /* background-image: url("/images/reuben-son.jpg"); */
+  display: none;
+}
+
+#Selected-Discography { display: none; }
+
+#About {
+  /* background-image: url("/images/studio.jpg"); */
+  display: none;
+}
+
+.project-description-text {
+  line-height: 1.4;
+}
 
 iframe { border: none; padding-bottom: 10px; }
 
@@ -285,14 +265,8 @@ polygon {
     letter-spacing: 0.3em;
   }
 
-  section.projects {
-    padding-left: 1vw;
-    padding-right: 1vw;
-  }
-
   .project-description-text {
     display: block;
-    background-color: white;
   }
 
   .project {

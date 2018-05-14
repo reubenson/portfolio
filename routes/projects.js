@@ -5,7 +5,9 @@ var jade = require('jade');
 var projects = {
   "birdr": "Birdr",
   "qcvg": "QCVG",
-  "private-chronology": "Private Chronology"
+  "private-chronology": "Private Chronology",
+  "about": "About",
+  "selected-discography": "Selected Discography"
 }
 
 router.get('/', function(req, res, next) {
