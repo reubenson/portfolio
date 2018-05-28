@@ -7,6 +7,14 @@ body {
   background-color: #DDDDDD;
 }
 
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin: 5px auto;
+}
+
 nav {
   position: fixed;
   top: 0px;
@@ -209,6 +217,8 @@ section.projects h2 {
 }
 
 #Selected-Discography { display: none; }
+
+#In-Collaboration { display: none; }
 
 #About {
   /* background-image: url("/images/studio.jpg"); */
